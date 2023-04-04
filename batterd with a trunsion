@@ -1,0 +1,65 @@
+  local HedsOn = Instance.new("Part")
+  HedsOn.Name = "HedsOn"
+  HedsOn.Anchored = false
+  HedsOn.CanCollide = false
+  HedsOn.Transparency = 1
+  HedsOn.Size = Vector3.new(4, 7, 3)
+  HedsOn.Parent = game.ReplicatedStorage
+  
+  local HTTransparency = 10
+  local XSize = 2.5
+  local YSize = 7.5
+  local ZSize = 2.5
+  
+  -------------------------------------
+  for v, i in pairs(game:GetService("Workspace"):GetChildren()) do
+    if i:FindFirstChild("Humanoid") then
+      if i:FindFirstChild("HumanoidRootPart") then
+        if not i:FindFirstChild("HedsOn") then
+          if i ~= game.Players.LocalPlayer.Character then
+            local BigHeadsPart = Instance.new("Part")
+            BigHeadsPart.Name = "Head"
+            BigHeadsPart.Anchored = false
+            BigHeadsPart.CanCollide = false
+            BigHeadsPart.Transparency = HTTransparency
+            BigHeadsPart.Size = Vector3.new(XSize, YSize, ZSize)
+  
+            local HeadsParts = BigHeadsPart:Clone()
+            HeadsParts.Parent = i
+            HeadsParts.Orientation = i.HumanoidRootPart.Orientation
+  
+            local HedsOn = HedsOn:Clone()
+            HedsOn.Parent = i
+  
+            local Headswelding = Instance.new("Weld")
+            Headswelding.Parent = HeadsParts
+            Headswelding.Part0 = i.HumanoidRootPart
+            Headswelding.Part1 = HeadsParts
+  
+            HeadsParts.Position = Vector3.new(i.HumanoidRootPart.Position.X,i.HumanoidRootPart.Position.Y - 0.4, i.HumanoidRootPart.Position.Z)
+          end
+        end
+      end
+    end
+  end
+  else
+  if HeadExtends == false then
+    for v, i in pairs(game:GetService("Workspace"):GetChildren()) do
+      if i:FindFirstChild("Humanoid") then
+        if i:FindFirstChild("HumanoidRootPart") then
+          if i:FindFirstChild("HedsOn") then
+            i.HedsOn:Remove()
+            for x,a in pairs(i:GetChildren()) do
+              if a.Name == "Head" then
+                if not a:FindFirstChild("Nametag") and not a:FindFirstChild("Face") then
+                  a:Remove()
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  end
+  end)
